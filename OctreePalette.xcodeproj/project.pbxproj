@@ -1,0 +1,315 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D65ED7EE254FD4CE009D0024 /* OctreePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65ED7ED254FD4CE009D0024 /* OctreePalette.swift */; };
+		D65ED7F7254FD512009D0024 /* PixelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65ED7F6254FD512009D0024 /* PixelData.swift */; };
+		D65ED7FA254FD52E009D0024 /* PixelExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65ED7F9254FD52E009D0024 /* PixelExtractor.swift */; };
+		D65ED7FD254FD566009D0024 /* OctreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65ED7FC254FD566009D0024 /* OctreeNode.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D65ED7E8254FD4CE009D0024 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		D65ED7EA254FD4CE009D0024 /* libOctreePalette.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOctreePalette.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D65ED7ED254FD4CE009D0024 /* OctreePalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctreePalette.swift; sourceTree = "<group>"; };
+		D65ED7F6254FD512009D0024 /* PixelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelData.swift; sourceTree = "<group>"; };
+		D65ED7F9254FD52E009D0024 /* PixelExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelExtractor.swift; sourceTree = "<group>"; };
+		D65ED7FC254FD566009D0024 /* OctreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctreeNode.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D65ED7E7254FD4CE009D0024 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D65ED7E1254FD4CE009D0024 = {
+			isa = PBXGroup;
+			children = (
+				D65ED7EC254FD4CE009D0024 /* OctreePalette */,
+				D65ED7EB254FD4CE009D0024 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D65ED7EB254FD4CE009D0024 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D65ED7EA254FD4CE009D0024 /* libOctreePalette.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D65ED7EC254FD4CE009D0024 /* OctreePalette */ = {
+			isa = PBXGroup;
+			children = (
+				D65ED7F5254FD4DB009D0024 /* Model */,
+			);
+			path = OctreePalette;
+			sourceTree = "<group>";
+		};
+		D65ED7F5254FD4DB009D0024 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D65ED7F6254FD512009D0024 /* PixelData.swift */,
+				D65ED7F9254FD52E009D0024 /* PixelExtractor.swift */,
+				D65ED7FC254FD566009D0024 /* OctreeNode.swift */,
+				D65ED7ED254FD4CE009D0024 /* OctreePalette.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D65ED7E9254FD4CE009D0024 /* OctreePalette */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D65ED7F1254FD4CE009D0024 /* Build configuration list for PBXNativeTarget "OctreePalette" */;
+			buildPhases = (
+				D65ED7E6254FD4CE009D0024 /* Sources */,
+				D65ED7E7254FD4CE009D0024 /* Frameworks */,
+				D65ED7E8254FD4CE009D0024 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OctreePalette;
+			productName = OctreePalette;
+			productReference = D65ED7EA254FD4CE009D0024 /* libOctreePalette.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D65ED7E2254FD4CE009D0024 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1210;
+				LastUpgradeCheck = 1210;
+				TargetAttributes = {
+					D65ED7E9254FD4CE009D0024 = {
+						CreatedOnToolsVersion = 12.1;
+					};
+				};
+			};
+			buildConfigurationList = D65ED7E5254FD4CE009D0024 /* Build configuration list for PBXProject "OctreePalette" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D65ED7E1254FD4CE009D0024;
+			productRefGroup = D65ED7EB254FD4CE009D0024 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D65ED7E9254FD4CE009D0024 /* OctreePalette */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D65ED7E6254FD4CE009D0024 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D65ED7F7254FD512009D0024 /* PixelData.swift in Sources */,
+				D65ED7EE254FD4CE009D0024 /* OctreePalette.swift in Sources */,
+				D65ED7FA254FD52E009D0024 /* PixelExtractor.swift in Sources */,
+				D65ED7FD254FD566009D0024 /* OctreeNode.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D65ED7EF254FD4CE009D0024 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D65ED7F0254FD4CE009D0024 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D65ED7F2254FD4CE009D0024 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9JVZR3762B;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D65ED7F3254FD4CE009D0024 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9JVZR3762B;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D65ED7E5254FD4CE009D0024 /* Build configuration list for PBXProject "OctreePalette" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D65ED7EF254FD4CE009D0024 /* Debug */,
+				D65ED7F0254FD4CE009D0024 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D65ED7F1254FD4CE009D0024 /* Build configuration list for PBXNativeTarget "OctreePalette" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D65ED7F2254FD4CE009D0024 /* Debug */,
+				D65ED7F3254FD4CE009D0024 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D65ED7E2254FD4CE009D0024 /* Project object */;
+}
