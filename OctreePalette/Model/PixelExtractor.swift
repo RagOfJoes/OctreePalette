@@ -8,9 +8,9 @@
 import UIKit
 
 public enum PixelExtractorQuality: CGFloat {
-    case low = 16
-    case regular = 64
-    case high = 256
+    case low = 64
+    case regular = 256
+    case high = 512
     case none = 0
 }
 
