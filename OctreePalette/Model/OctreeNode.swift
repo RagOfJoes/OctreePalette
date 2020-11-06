@@ -9,19 +9,16 @@ import Foundation
 
 public class OctreeNode {
     // MARK: - Internal Properties
-    let color: PixelData
-    
     var pixelCount: Int
+    let color: PixelData
     var paletteIndex: Int
-    
-    var children: [OctreeNode?] = [OctreeNode?]()
+    var children: [OctreeNode?]
     
     var isLeaf: Bool {
         get {
             return pixelCount > 0
         }
     }
-    
     var leafNodes: [OctreeNode?] {
         get {
             var array: [OctreeNode?] = [OctreeNode?]()
@@ -42,12 +39,6 @@ public class OctreeNode {
         }
     }
     
-    var normalizedColor: PixelData {
-        get {
-            return PixelData(red: self.color.red / UInt32(self.pixelCount), green: self.color.green / UInt32(self.pixelCount), blue: self.color.blue / UInt32(self.pixelCount))
-        }
-    }
-    
     // MARK: - Life Cycle
     init(level: Int, parent: OctreePalette) {
         self.color = PixelData(red: 0, green: 0, blue: 0)
@@ -64,7 +55,10 @@ public class OctreeNode {
 
 // MARK: - Mutations
 extension OctreeNode {
-    public func insert(color: PixelData, at level: Int, of parent: OctreePalette) -> Void {
+    /**
+     * Insert a color into node
+     */
+    func insert(color: PixelData, at level: Int, of parent: OctreePalette) -> Void {
         if level >= OctreePalette.MAX_DEPTH {
             self.color.add(color: color)
             self.pixelCount += 1
@@ -80,7 +74,12 @@ extension OctreeNode {
         children[index]!.insert(color: color, at: level + 1, of: parent)
     }
     
-    public func removeLeaves() -> Int {
+    /**
+     * Add leafNodes pixel count and color channels into Parent node
+     *
+     * - Returns: Count of all removed leaves
+     */
+    func removeLeaves() -> Int {
         var result: Int = 0
         for node in leafNodes {
             if node != nil {
@@ -89,14 +88,18 @@ extension OctreeNode {
                 result += 1
             }
         }
-        children = []
         return result - 1
     }
 }
 
 // MARK: - Getters
 extension OctreeNode {
-    public func getPaletteIndex(color: PixelData, level: Int) -> Int {
+    /**
+     * Get Palette Index for `color` and traverse a `level` deeper if not a leaf
+     *
+     * - Returns: The Palette Index for color
+     */
+    func getPaletteIndex(color: PixelData, level: Int) -> Int {
         var result: Int!
         if isLeaf {
             return paletteIndex
@@ -104,11 +107,12 @@ extension OctreeNode {
         
         let index = getColorIndex(for: level, color: color)
         if leafNodes[index] != nil {
-            result = leafNodes[index]?.getPaletteIndex(color: color, level: level + 1)
+            return children[index]!.getPaletteIndex(color: color, level: level + 1)
         } else {
-            for node in leafNodes {
+            for node in children {
                 if node != nil {
-                    return node!.getPaletteIndex(color: color, level: level + 1)
+                    result = node!.getPaletteIndex(color: color, level: level + 1)
+                    break
                 }
             }
         }
@@ -116,11 +120,11 @@ extension OctreeNode {
         return result
     }
     
-    fileprivate func getColorIndex(for level: Int, color: PixelData) -> Int {
+    func getColorIndex(for level: Int, color: PixelData) -> Int {
         var index: Int = 0
         
         // 128 bits
-        let bits: UInt32 = 0b10000000
+        let bits: UInt32 = 0x80
         
         // Bit masking
         // Possible shifted values with a max depth of 8
