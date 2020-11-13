@@ -65,12 +65,12 @@
 		D65ED7EC254FD4CE009D0024 /* OctreePalette */ = {
 			isa = PBXGroup;
 			children = (
-				D65ED7F5254FD4DB009D0024 /* Model */,
+				D6D00D5E255661C200534636 /* Sources */,
 			);
 			path = OctreePalette;
 			sourceTree = "<group>";
 		};
-		D65ED7F5254FD4DB009D0024 /* Model */ = {
+		D6D00D5E255661C200534636 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				D65ED7F6254FD512009D0024 /* PixelData.swift */,
@@ -79,7 +79,7 @@
 				D65ED7FC254FD566009D0024 /* OctreeNode.swift */,
 				D65ED7ED254FD4CE009D0024 /* OctreePalette.swift */,
 			);
-			path = Model;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
