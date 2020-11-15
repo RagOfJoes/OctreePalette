@@ -33,6 +33,7 @@
 		D65ED7F9254FD52E009D0024 /* PixelExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelExtractor.swift; sourceTree = "<group>"; };
 		D65ED7FC254FD566009D0024 /* OctreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctreeNode.swift; sourceTree = "<group>"; };
 		D6D00D5A255532B000534636 /* DomainColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainColors.swift; sourceTree = "<group>"; };
+		D6E378ED256133EB003E739D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +50,7 @@
 		D65ED7E1254FD4CE009D0024 = {
 			isa = PBXGroup;
 			children = (
+				D6E378ED256133EB003E739D /* .gitignore */,
 				D65ED7EC254FD4CE009D0024 /* OctreePalette */,
 				D65ED7EB254FD4CE009D0024 /* Products */,
 			);
