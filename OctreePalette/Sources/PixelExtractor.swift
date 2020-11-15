@@ -26,16 +26,32 @@ public class PixelExtractor {
      * - Parameter newSize: Size to resize image to
      */
     fileprivate func resizeImage(newSize: CGSize) -> UIImage {
-        let format = UIGraphicsImageRendererFormat()
-        format.scale = 1
-        
-        // Disables HDR
-        format.preferredRange = .standard
-        let renderer = UIGraphicsImageRenderer(size: newSize, format: format)
-        let result = renderer.image { (context) in
+        if #available(iOS 10, *) {
+            let format = UIGraphicsImageRendererFormat()
+            format.scale = 1
+            format.opaque = false
+            if #available(iOS 12, *) {
+                // Disable HDR
+                format.preferredRange = .standard
+            }
+            
+            let renderer = UIGraphicsImageRenderer(size: newSize, format: format)
+            let result = renderer.image { (context) in
+                image.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
+            }
+            return result
+        } else {
+            UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+            defer {
+                UIGraphicsEndImageContext()
+            }
             image.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
+            guard let result = UIGraphicsGetImageFromCurrentImageContext() else {
+                fatalError("OctreePalette.PixelExtractor.resizeImage failed: UIGraphicsGetImageFromCurrentImageContext returned nil.")
+            }
+            
+            return result
         }
-        return result
     }
     
     /**
@@ -84,14 +100,29 @@ public class PixelExtractor {
             var b: UInt32 = 0
             
             // 3a. Get Pixel Format
-            if cgImage.byteOrderInfo == .orderDefault || cgImage.byteOrderInfo == .order32Big {
-                r = pixel & 255
-                g = (pixel >> 8) & 255
-                b = (pixel >> 16) & 255
-            } else if cgImage.byteOrderInfo == .order32Little {
-                r = (pixel >> 16) & 255
-                g = (pixel >> 8) & 255
-                b = pixel & 255
+            if #available(iOS 12.0, *) {
+                if cgImage.byteOrderInfo == .orderDefault || cgImage.byteOrderInfo == .order32Big {
+                    r = pixel & 255
+                    g = (pixel >> 8) & 255
+                    b = (pixel >> 16) & 255
+                } else if cgImage.byteOrderInfo == .order32Little {
+                    r = (pixel >> 16) & 255
+                    g = (pixel >> 8) & 255
+                    b = pixel & 255
+                }
+            } else {
+                let bitmapInfo: CGBitmapInfo = cgImage.bitmapInfo
+                let endianLittle: Bool = bitmapInfo.contains(.byteOrder32Little)
+                
+                if endianLittle {
+                    r = (pixel >> 16) & 255
+                    g = (pixel >> 8) & 255
+                    b = pixel & 255
+                } else {
+                    r = pixel & 255
+                    g = (pixel >> 8) & 255
+                    b = (pixel >> 16) & 255
+                }
             }
             let color = PixelData(red: r, green: g, blue: b)
             result.append(color)
