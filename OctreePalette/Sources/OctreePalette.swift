@@ -7,7 +7,7 @@
 
 import UIKit
 
-fileprivate typealias Palette = (color: PixelData, count: Int)
+fileprivate typealias Palette = (color: OctreeColor, count: Int)
 
 public class OctreePalette {
     // MARK: - Internal Properties
@@ -20,22 +20,22 @@ public class OctreePalette {
         self.levels = [[OctreeNode]](repeating: [OctreeNode](), count: OctreePalette.MAX_DEPTH)
         self.root = OctreeNode(level: 0, parent: self)
     }
-    public func addColor(color: PixelData) {
-        root.insert(color: color, at: 0, of: self)
+    public func addColor(color: OctreeColor) {
+        self.root.insert(color: color, at: 0, of: self)
     }
     func addLevelNode(level: Int, node: OctreeNode) -> Void {
-        levels[level]?.append(node)
+        self.levels[level]?.append(node)
     }
     private func buildPalette(colorCount: Int) -> [Palette] {
-        var leafCount = root.leafNodes.count
+        var leafCount = self.root.leafNodes.count
         
         var paletteIndex = 0
         var palette: [Palette] = [Palette]()
         
         // 1. Reduce Leaf Nodes
         for level in stride(from: OctreePalette.MAX_DEPTH - 1, through: 0, by: -1) {
-            if levels[level] != nil {
-                for node in levels[level]! {
+            if self.levels[level] != nil {
+                for node in self.levels[level]! {
                     leafCount -= node.removeLeaves()
                     if leafCount <= colorCount {
                         break
@@ -49,7 +49,7 @@ public class OctreePalette {
             }
         }
         
-        var leafNodes = root.leafNodes
+        var leafNodes = self.root.leafNodes
         leafNodes.sort {
             $0!.pixelCount > $1!.pixelCount
         }
@@ -83,10 +83,10 @@ extension OctreePalette {
      * Makes  a palette from an array of colors
      * - Parameter colorCount: How much color to extract
      */
-    public func makePalette(colorCount: Int) -> [PixelData] {
-        let palette = buildPalette(colorCount: colorCount)
+    public func makePalette(colorCount: Int) -> [OctreeColor] {
+        let palette = self.buildPalette(colorCount: colorCount)
         
-        var res: [PixelData] = [PixelData]()
+        var res: [OctreeColor] = [OctreeColor]()
         for node in palette {
             res.append(node.color)
         }

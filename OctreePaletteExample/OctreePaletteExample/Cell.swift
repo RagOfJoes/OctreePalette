@@ -115,7 +115,7 @@ extension Cell {
         }
     }
     
-    private func createColorSquare(with color: PixelData, textColor: UIColor) -> UIView {
+    private func createColorSquare(with color: OctreeColor, textColor: UIColor) -> UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         

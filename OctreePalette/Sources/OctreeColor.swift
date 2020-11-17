@@ -1,5 +1,5 @@
 //
-//  PixelData.swift
+//  OctreeColor.swift
 //  OctreePalette
 //
 //  Created by Victor Ragojos on 11/1/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class PixelData {
+public class OctreeColor {
     // MARK: - Internal Properties
     public var red: UInt32
     public var green: UInt32
@@ -20,6 +20,11 @@ public class PixelData {
     public var uiColor: UIColor {
         get {
             return UIColor(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: 1)
+        }
+    }
+    public var HexCode: String {
+        get {
+            return String(format:"#%02X%02X%02X", self.red, self.green, self.blue)
         }
     }
     public var debug: String {
@@ -51,18 +56,18 @@ public class PixelData {
 }
 
 // MARK: - Helpers
-extension PixelData {
-    public func add(color: PixelData) {
+extension OctreeColor {
+    public func add(color: OctreeColor) {
         self.red += color.red
         self.green += color.green
         self.blue += color.blue
     }
     
-    public func normalize(with pixelCount: Int) -> PixelData {
-        return PixelData(red: self.red / UInt32(pixelCount), green: self.green / UInt32(pixelCount), blue: self.blue / UInt32(pixelCount))
+    public func normalize(with pixelCount: Int) -> OctreeColor {
+        return OctreeColor(red: self.red / UInt32(pixelCount), green: self.green / UInt32(pixelCount), blue: self.blue / UInt32(pixelCount))
     }
     
-    public func contrasts(color: PixelData) -> Bool {
+    public func contrasts(color: OctreeColor) -> Bool {
         let darkerColor = max(self.luminance, color.luminance)
         let lighterColor = min(self.luminance, color.luminance)
         let ratio = 1 / ((lighterColor + 0.05) / (darkerColor + 0.05))
@@ -72,7 +77,7 @@ extension PixelData {
 }
 
 // MARK: - Delta E
-extension PixelData {
+extension OctreeColor {
     /**
      * Transforms RGB ito XYZ Color Space
      * ### Reference
@@ -167,7 +172,7 @@ extension PixelData {
      * ### Reference
      * [Wikipedia](https://en.wikipedia.org/wiki/Color_difference#CIE76)
      */
-    public func getDeltaE(with other: PixelData) -> CGFloat {
+    public func getDeltaE(with other: OctreeColor) -> CGFloat {
         let L1: CGFloat = self.LABColor.L
         let A1: CGFloat = self.LABColor.A
         let B1: CGFloat = self.LABColor.B
@@ -183,7 +188,7 @@ extension PixelData {
      * - Parameter color: The other color to compare to
      * - Parameter tolerance: Controls how distinct returned colors are from one another.  0 indicates the lowest color difference, 100 indicates complete distortion
      */
-    public func distinct(from color: PixelData, with tolerance: Int = 42) -> Bool {
+    public func distinct(from color: OctreeColor, with tolerance: Int = 42) -> Bool {
         var fixedTolerance: Int = tolerance
         if tolerance < 0 {
             fixedTolerance = 0

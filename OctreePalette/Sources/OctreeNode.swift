@@ -10,7 +10,7 @@ import Foundation
 public class OctreeNode {
     // MARK: - Internal Properties
     var pixelCount: Int
-    let color: PixelData
+    let color: OctreeColor
     var paletteIndex: Int
     var children: [OctreeNode?]
     
@@ -41,7 +41,7 @@ public class OctreeNode {
     
     // MARK: - Life Cycle
     init(level: Int, parent: OctreePalette) {
-        self.color = PixelData(red: 0, green: 0, blue: 0)
+        self.color = OctreeColor(red: 0, green: 0, blue: 0)
         self.pixelCount = 0
         self.paletteIndex = 0
         self.children = [OctreeNode?](repeating: nil, count: OctreePalette.MAX_DEPTH)
@@ -58,7 +58,7 @@ extension OctreeNode {
     /**
      * Insert a color into node
      */
-    func insert(color: PixelData, at level: Int, of parent: OctreePalette) -> Void {
+    func insert(color: OctreeColor, at level: Int, of parent: OctreePalette) -> Void {
         if level >= OctreePalette.MAX_DEPTH {
             self.color.add(color: color)
             self.pixelCount += 1
@@ -99,7 +99,7 @@ extension OctreeNode {
      *
      * - Returns: The Palette Index for color
      */
-    func getPaletteIndex(color: PixelData, level: Int) -> Int {
+    func getPaletteIndex(color: OctreeColor, level: Int) -> Int {
         var result: Int!
         if isLeaf {
             return paletteIndex
@@ -120,7 +120,7 @@ extension OctreeNode {
         return result
     }
     
-    func getColorIndex(for level: Int, color: PixelData) -> Int {
+    func getColorIndex(for level: Int, color: OctreeColor) -> Int {
         var index: Int = 0
         
         // 128 bits

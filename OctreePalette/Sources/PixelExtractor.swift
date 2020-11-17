@@ -62,7 +62,7 @@ public class PixelExtractor {
      *
      * - Parameter quality: Quality of extraction
      */
-    public func generatePixels(quality: PixelExtractorQuality = .regular) -> [PixelData] {
+    public func generatePixels(quality: PixelExtractorQuality = .regular) -> [OctreeColor] {
         // 1. Resize Image if needed
         var scaleDownSize: CGSize = image.size
         if quality != .none {
@@ -91,7 +91,7 @@ public class PixelExtractor {
         let size = cgImage.width * cgImage.height
         let buffer = UnsafeMutableBufferPointer<UInt32>.allocate(capacity: size)
         _ = imageData.copyBytes(to: buffer)
-        var result = [PixelData]()
+        var result = [OctreeColor]()
         result.reserveCapacity(size)
         
         for pixel in buffer {
@@ -124,7 +124,7 @@ public class PixelExtractor {
                     b = (pixel >> 16) & 255
                 }
             }
-            let color = PixelData(red: r, green: g, blue: b)
+            let color = OctreeColor(red: r, green: g, blue: b)
             result.append(color)
         }
         return result
