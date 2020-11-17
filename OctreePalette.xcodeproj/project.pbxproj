@@ -8,11 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		D65ED7EE254FD4CE009D0024 /* OctreePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65ED7ED254FD4CE009D0024 /* OctreePalette.swift */; };
-		D65ED7F7254FD512009D0024 /* PixelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65ED7F6254FD512009D0024 /* PixelData.swift */; };
 		D65ED7FA254FD52E009D0024 /* PixelExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65ED7F9254FD52E009D0024 /* PixelExtractor.swift */; };
 		D65ED7FD254FD566009D0024 /* OctreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65ED7FC254FD566009D0024 /* OctreeNode.swift */; };
-		D6D00D5B255532B000534636 /* DomainColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D00D5A255532B000534636 /* DomainColors.swift */; };
+		D6D00D5B255532B000534636 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D00D5A255532B000534636 /* ColorTheme.swift */; };
+		D6E3793D2563E5C8003E739D /* OctreeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E3793C2563E5C7003E739D /* OctreeColor.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D6E3791A256275D1003E739D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6E37916256275D1003E739D /* OctreePaletteExample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D6E378FF256275D0003E739D;
+			remoteInfo = OctreePaletteExample;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		D65ED7E8254FD4CE009D0024 /* CopyFiles */ = {
@@ -29,11 +39,12 @@
 /* Begin PBXFileReference section */
 		D65ED7EA254FD4CE009D0024 /* libOctreePalette.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOctreePalette.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65ED7ED254FD4CE009D0024 /* OctreePalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctreePalette.swift; sourceTree = "<group>"; };
-		D65ED7F6254FD512009D0024 /* PixelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelData.swift; sourceTree = "<group>"; };
 		D65ED7F9254FD52E009D0024 /* PixelExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelExtractor.swift; sourceTree = "<group>"; };
 		D65ED7FC254FD566009D0024 /* OctreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctreeNode.swift; sourceTree = "<group>"; };
-		D6D00D5A255532B000534636 /* DomainColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainColors.swift; sourceTree = "<group>"; };
+		D6D00D5A255532B000534636 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		D6E378ED256133EB003E739D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		D6E37916256275D1003E739D /* OctreePaletteExample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OctreePaletteExample.xcodeproj; path = OctreePaletteExample/OctreePaletteExample.xcodeproj; sourceTree = "<group>"; };
+		D6E3793C2563E5C7003E739D /* OctreeColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OctreeColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +63,7 @@
 			children = (
 				D6E378ED256133EB003E739D /* .gitignore */,
 				D65ED7EC254FD4CE009D0024 /* OctreePalette */,
+				D6E37916256275D1003E739D /* OctreePaletteExample.xcodeproj */,
 				D65ED7EB254FD4CE009D0024 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,13 +87,21 @@
 		D6D00D5E255661C200534636 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D65ED7F6254FD512009D0024 /* PixelData.swift */,
+				D6E3793C2563E5C7003E739D /* OctreeColor.swift */,
 				D65ED7F9254FD52E009D0024 /* PixelExtractor.swift */,
-				D6D00D5A255532B000534636 /* DomainColors.swift */,
+				D6D00D5A255532B000534636 /* ColorTheme.swift */,
 				D65ED7FC254FD566009D0024 /* OctreeNode.swift */,
 				D65ED7ED254FD4CE009D0024 /* OctreePalette.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		D6E37917256275D1003E739D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D6E3791B256275D1003E739D /* OctreePaletteExample.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,6 +149,12 @@
 			mainGroup = D65ED7E1254FD4CE009D0024;
 			productRefGroup = D65ED7EB254FD4CE009D0024 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D6E37917256275D1003E739D /* Products */;
+					ProjectRef = D6E37916256275D1003E739D /* OctreePaletteExample.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D65ED7E9254FD4CE009D0024 /* OctreePalette */,
@@ -136,14 +162,24 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		D6E3791B256275D1003E739D /* OctreePaletteExample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = OctreePaletteExample.app;
+			remoteRef = D6E3791A256275D1003E739D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D65ED7E6254FD4CE009D0024 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6D00D5B255532B000534636 /* DomainColors.swift in Sources */,
-				D65ED7F7254FD512009D0024 /* PixelData.swift in Sources */,
+				D6D00D5B255532B000534636 /* ColorTheme.swift in Sources */,
 				D65ED7EE254FD4CE009D0024 /* OctreePalette.swift in Sources */,
+				D6E3793D2563E5C8003E739D /* OctreeColor.swift in Sources */,
 				D65ED7FA254FD52E009D0024 /* PixelExtractor.swift in Sources */,
 				D65ED7FD254FD566009D0024 /* OctreeNode.swift in Sources */,
 			);
