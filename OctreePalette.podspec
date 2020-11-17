@@ -20,7 +20,7 @@ Pod::Spec.new do |spec|
   # spec.watchos.deployment_target = "2.0"
   # spec.tvos.deployment_target = "9.0"
   spec.source_files  = "OctreePalette/Sources/*.swift"
-  spec.source       = { :git => "https://github.com/RagOfJoes//OctreePalette.git", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/RagOfJoes/OctreePalette.git", :tag => "#{spec.version}" }
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
