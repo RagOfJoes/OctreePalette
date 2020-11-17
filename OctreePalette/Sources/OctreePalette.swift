@@ -45,7 +45,7 @@ public class OctreePalette {
                 if leafCount <= colorCount {
                     break
                 }
-                levels[level] = []
+                self.levels[level] = []
             }
         }
         
@@ -95,56 +95,55 @@ extension OctreePalette {
     }
     
     /**
-     * Get domain colors of an Image
+     * Get the color theme from an Image
      * - Parameter image: Image to generate domain colors from
      * - Parameter tolerance: Controls how distinct returned colors are from one another.  0 indicates the lowest color difference, 100 indicates complete distortion
      * - Parameter quality: Image quality to extract colors from. It's recommended to omit this option to ensure performance isn't reduced significantly
      */
-    public func getDomainColors(from image: UIImage, tolerance: Int = 42, quality: PixelExtractorQuality = .regular) -> DomainColors {
+    public func getColorTheme(from image: UIImage, tolerance: Int = 42, quality: PixelExtractorQuality = .regular) -> ColorTheme {
         // To reduce the change of colors not being returned
         // we'll set a minimum of 255
         let COLOR_COUNT: Int = 255
-        var domainColors: [PixelData?] = [PixelData?](repeating: nil, count: 4)
+        var colors: [OctreeColor?] = [OctreeColor?](repeating: nil, count: 4)
         
         // 1. Resizes image, then retrieves colors from its pixels
         // Add colors to instance to be evaluated
         let pixels = PixelExtractor(image).generatePixels(quality: quality)
         for pixel in pixels {
-            addColor(color: pixel)
+            self.addColor(color: pixel)
         }
         
         // 2. Build Palette
-        let palette = buildPalette(colorCount: COLOR_COUNT)
+        let palette = self.buildPalette(colorCount: COLOR_COUNT)
         
         // 3. Check for edge cases
         if palette.count > 0 {
-            domainColors[0] = palette[0].color
+            colors[0] = palette[0].color
         } else {
-            domainColors[0] = PixelData(red: 0, green: 0, blue: 0)
+            colors[0] = OctreeColor(red: 0, green: 0, blue: 0)
         }
         
         // 4. Retrieve domain colors from generated palette
-        let background = domainColors[0]!
+        let background = colors[0]!
         for node in palette {
             let color = node.color
-            let isContrasting: Bool = color.contrasts(color: background)
-            if domainColors[1] == nil && isContrasting {
-                domainColors[1] = color
-            } else if domainColors[2] == nil {
-                guard let primary = domainColors[1] else {
+            if colors[1] == nil && background.distinct(from: color, with: tolerance) {
+                colors[1] = color
+            } else if colors[2] == nil {
+                guard let primary = colors[1] else {
                     continue
                 }
                 
-                if isContrasting && primary.distinct(from: color, with: tolerance) {
-                    domainColors[2] = color
+                if primary.distinct(from: color, with: tolerance) {
+                    colors[2] = color
                 }
-            } else if domainColors[3] == nil {
-                guard let primary = domainColors[1], let secondary = domainColors[2] else {
+            } else if colors[3] == nil {
+                guard let primary = colors[1], let secondary = colors[2] else {
                     continue
                 }
                 
-                if isContrasting && primary.distinct(from: color, with: tolerance) && secondary.distinct(from: color, with: tolerance) {
-                    domainColors[3] = color
+                if primary.distinct(from: color, with: tolerance) && secondary.distinct(from: color, with: tolerance) {
+                    colors[3] = color
                     break
                 }
             }
@@ -152,11 +151,28 @@ extension OctreePalette {
         
         // 5. Fill any uninitialized colors
         for i in 1...3 {
-            if domainColors[i] == nil {
-                domainColors[i] = background.isDark ? PixelData(red: 255, green: 255, blue: 255) : PixelData(red: 0, green: 0, blue: 0)
+            if colors[i] == nil {
+                colors[i] = background.isDark ? OctreeColor(red: 255, green: 255, blue: 255) : OctreeColor(red: 0, green: 0, blue: 0)
             }
         }
         
-        return DomainColors(background: background, primary: domainColors[1]!, secondary: domainColors[2]!, tertiary: domainColors[3]!)
+        let colorTheme: ColorTheme = ColorTheme(background: background, primary: colors[1]!, secondary: colors[2]!, tertiary: colors[3]!)
+        
+        return colorTheme
+    }
+    
+    /**
+     * Get the color theme from an Image asynchronously
+     * - Parameter image: Image to generate domain colors from
+     * - Parameter tolerance: Controls how distinct returned colors are from one another.  0 indicates the lowest color difference, 100 indicates complete distortion
+     * - Parameter quality: Image quality to extract colors from. It's recommended to omit this option to ensure performance isn't reduced significantly
+     * - Parameter completion: Completion handler
+     */
+    public func getColorTheme(from image: UIImage, tolerance: Int = 42, quality: PixelExtractorQuality = .regular, _ completion: @escaping (ColorTheme) -> Void) {
+        DispatchQueue.global().async {
+            let colorTheme = self.getColorTheme(from: image, tolerance: tolerance, quality: quality)
+            
+            completion(colorTheme)
+        }
     }
 }
