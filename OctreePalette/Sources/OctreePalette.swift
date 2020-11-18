@@ -127,14 +127,17 @@ extension OctreePalette {
         let background = colors[0]!
         for node in palette {
             let color = node.color
-            if colors[1] == nil && background.distinct(from: color, with: tolerance) {
-                colors[1] = color
+            let distinctFromBg = background.distinct(from: color, with: tolerance)
+            if colors[1] == nil {
+                if distinctFromBg {
+                    colors[1] = color
+                }
             } else if colors[2] == nil {
                 guard let primary = colors[1] else {
                     continue
                 }
                 
-                if primary.distinct(from: color, with: tolerance) {
+                if distinctFromBg && primary.distinct(from: color, with: tolerance) {
                     colors[2] = color
                 }
             } else if colors[3] == nil {
@@ -142,7 +145,7 @@ extension OctreePalette {
                     continue
                 }
                 
-                if primary.distinct(from: color, with: tolerance) && secondary.distinct(from: color, with: tolerance) {
+                if distinctFromBg && primary.distinct(from: color, with: tolerance) && secondary.distinct(from: color, with: tolerance) {
                     colors[3] = color
                     break
                 }
