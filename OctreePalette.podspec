@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = "OctreePalette"
-  spec.version      = "0.0.1"
+  spec.version      = "0.1.0"
   spec.license      = { :type => "MIT", :file => "LICENSE" }
   spec.homepage     = "http://github.com/RagOfJoes/OctreePalette"
   spec.author       = { "Victor Ragojos" => "vhsvragojos@gmail.com" }
