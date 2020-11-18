@@ -41,7 +41,7 @@ class Cell: UICollectionViewCell {
     }
     
     func configure(image: UIImage) {
-        OctreePalette().getColorTheme(from: image) { (theme) in
+        image.getColorTheme() { (theme) in
             DispatchQueue.main.async {
                 
                 UIView.animate(withDuration: 0.25) {
