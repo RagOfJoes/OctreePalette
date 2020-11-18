@@ -66,14 +66,6 @@ extension OctreeColor {
     public func normalize(with pixelCount: Int) -> OctreeColor {
         return OctreeColor(red: self.red / UInt32(pixelCount), green: self.green / UInt32(pixelCount), blue: self.blue / UInt32(pixelCount))
     }
-    
-    public func contrasts(color: OctreeColor) -> Bool {
-        let darkerColor = max(self.luminance, color.luminance)
-        let lighterColor = min(self.luminance, color.luminance)
-        let ratio = 1 / ((lighterColor + 0.05) / (darkerColor + 0.05))
-        
-        return ratio > 1.8
-    }
 }
 
 // MARK: - Delta E
