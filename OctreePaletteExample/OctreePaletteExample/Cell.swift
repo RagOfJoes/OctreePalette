@@ -10,12 +10,6 @@ import OctreePalette
 
 class Cell: UICollectionViewCell {
     // MARK: - Internal Properties
-    private lazy var bgView: UIView = {
-        let bgView: UIView = UIView()
-        bgView.backgroundColor = .systemBackground
-        bgView.translatesAutoresizingMaskIntoConstraints = false
-        return bgView
-    }()
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -26,7 +20,9 @@ class Cell: UICollectionViewCell {
     }()
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.spacing = 0
         stackView.axis = .vertical
+        stackView.isBaselineRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -34,7 +30,6 @@ class Cell: UICollectionViewCell {
     // MARK: - Life Cycles
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        self.contentView.addSubview(bgView)
         self.contentView.addSubview(imageView)
         self.contentView.addSubview(stackView)
         self.setupAnchors()
@@ -43,9 +38,9 @@ class Cell: UICollectionViewCell {
     func configure(image: UIImage) {
         image.getColorTheme() { (theme) in
             DispatchQueue.main.async {
-                
                 UIView.animate(withDuration: 0.25) {
                     self.imageView.image = image
+                    self.contentView.backgroundColor = theme.background.uiColor
                     self.setupColors(theme: theme)
                 }
             }
@@ -60,19 +55,11 @@ class Cell: UICollectionViewCell {
 // MARK: - Helper Functions
 extension Cell {
     private func setupAnchors() {
-        let bgViewConstraints: [NSLayoutConstraint] = [
-            bgView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            bgView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor),
-            bgView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
-            bgView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor)
-        ]
-        NSLayoutConstraint.activate(bgViewConstraints)
-        
         let imageViewConstraints: [NSLayoutConstraint] = [
-            imageView.trailingAnchor.constraint(equalTo: bgView.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 20),
-            imageView.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: -20),
-            imageView.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 20)
+            imageView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
+            imageView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            imageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 20)
         ]
         NSLayoutConstraint.activate(imageViewConstraints)
         
@@ -86,11 +73,6 @@ extension Cell {
     }
     
     private func setupColors(theme: ColorTheme) {
-        UIView.animate(withDuration: 0.25) {
-            self.bgView.backgroundColor = theme.background.uiColor
-            self.contentView.backgroundColor = theme.background.uiColor
-        }
-        
         for i in 0 ... 3 {
             let colorView: UIView
             switch i {
