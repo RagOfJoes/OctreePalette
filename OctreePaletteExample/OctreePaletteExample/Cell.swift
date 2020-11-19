@@ -36,7 +36,7 @@ class Cell: UICollectionViewCell {
     }
     
     func configure(image: UIImage) {
-        image.getColorTheme() { (theme) in
+        image.getColorTheme(tolerance: 50, type: .largeText) { (theme) in
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.25) {
                     self.imageView.image = image
@@ -83,10 +83,10 @@ extension Cell {
                 colorView = createColorSquare(with: theme.primary, textColor: theme.primary.uiColor)
                 break
             case 2:
-                colorView = createColorSquare(with: theme.secondary, textColor: theme.primary.uiColor)
+                colorView = createColorSquare(with: theme.secondary, textColor: theme.secondary.uiColor)
                 break
             default:
-                colorView = createColorSquare(with: theme.tertiary, textColor: theme.primary.uiColor)
+                colorView = createColorSquare(with: theme.tertiary, textColor: theme.tertiary.uiColor)
                 break
             }
             self.stackView.addArrangedSubview(colorView)
