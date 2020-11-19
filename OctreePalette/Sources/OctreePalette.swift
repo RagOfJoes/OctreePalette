@@ -9,6 +9,13 @@ import UIKit
 
 fileprivate typealias Palette = (color: OctreeColor, count: Int)
 
+public enum ColorThemeType: CGFloat {
+    case interface = 7.0
+    
+    case smallText = 3.5
+    case largeText = 4.0
+}
+
 public class OctreePalette {
     // MARK: - Internal Properties
     public static let MAX_DEPTH = 8
@@ -49,12 +56,13 @@ public class OctreePalette {
             }
         }
         
+        // 2. Sort by count
         var leafNodes = self.root.leafNodes
         leafNodes.sort {
             $0!.pixelCount > $1!.pixelCount
         }
         
-        // 2. Build Palette
+        // 3. Build Palette
         for node in leafNodes {
             if paletteIndex >= colorCount {
                 break
@@ -66,11 +74,6 @@ public class OctreePalette {
             }
             node!.paletteIndex = paletteIndex
             paletteIndex += 1
-        }
-        
-        // 3. Sort by count
-        palette.sort {
-            return $0.count > $1.count
         }
         
         return palette
@@ -98,9 +101,10 @@ extension OctreePalette {
      * Get the color theme from an Image
      * - Parameter image: Image to generate domain colors from
      * - Parameter tolerance: Controls how distinct returned colors are from one another.  0 indicates the lowest color difference, 100 indicates complete distortion
+     * - Parameter type: Controls how contrasted other colors are from the background. Uses: [WCAG 2.0](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html)
      * - Parameter quality: Image quality to extract colors from. It's recommended to omit this option to ensure performance isn't reduced significantly
      */
-    public func getColorTheme(from image: UIImage, tolerance: Int = 42, quality: PixelExtractorQuality = .regular) -> ColorTheme {
+    public func getColorTheme(from image: UIImage, tolerance: Int = 50, type: ColorThemeType = .interface, quality: PixelExtractorQuality = .regular) -> ColorTheme {
         // To reduce the change of colors not being returned
         // we'll set a minimum of 255
         let COLOR_COUNT: Int = 255
@@ -123,13 +127,13 @@ extension OctreePalette {
             colors[0] = OctreeColor(red: 0, green: 0, blue: 0)
         }
         
-        // 4. Retrieve domain colors from generated palette
+        // 4. Retrieve color theme from generated palette
         let background = colors[0]!
         for node in palette {
             let color = node.color
-            let distinctFromBg = background.distinct(from: color, with: tolerance)
+            let constrastsFromBg: Bool = background.contrasts(color: color, threshold: type.rawValue)
             if colors[1] == nil {
-                if distinctFromBg {
+                if constrastsFromBg {
                     colors[1] = color
                 }
             } else if colors[2] == nil {
@@ -137,7 +141,7 @@ extension OctreePalette {
                     continue
                 }
                 
-                if distinctFromBg && primary.distinct(from: color, with: tolerance) {
+                if constrastsFromBg && primary.distinct(from: color, with: tolerance) {
                     colors[2] = color
                 }
             } else if colors[3] == nil {
@@ -145,7 +149,7 @@ extension OctreePalette {
                     continue
                 }
                 
-                if distinctFromBg && primary.distinct(from: color, with: tolerance) && secondary.distinct(from: color, with: tolerance) {
+                if constrastsFromBg && primary.distinct(from: color, with: tolerance) && secondary.distinct(from: color, with: tolerance) {
                     colors[3] = color
                     break
                 }
@@ -168,12 +172,13 @@ extension OctreePalette {
      * Get the color theme from an Image asynchronously
      * - Parameter image: Image to generate domain colors from
      * - Parameter tolerance: Controls how distinct returned colors are from one another.  0 indicates the lowest color difference, 100 indicates complete distortion
+     * - Parameter type: Controls how contrasted other colors are from the background. Uses: [WCAG 2.0](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html)
      * - Parameter quality: Image quality to extract colors from. It's recommended to omit this option to ensure performance isn't reduced significantly
      * - Parameter completion: Completion handler
      */
-    public func getColorTheme(from image: UIImage, tolerance: Int = 42, quality: PixelExtractorQuality = .regular, _ completion: @escaping (ColorTheme) -> Void) {
+    public func getColorTheme(from image: UIImage, tolerance: Int = 50, type: ColorThemeType = .interface, quality: PixelExtractorQuality = .regular, _ completion: @escaping (ColorTheme) -> Void) {
         DispatchQueue.global().async {
-            let colorTheme = self.getColorTheme(from: image, tolerance: tolerance, quality: quality)
+            let colorTheme = self.getColorTheme(from: image, tolerance: tolerance, type: type, quality: quality)
             
             completion(colorTheme)
         }
